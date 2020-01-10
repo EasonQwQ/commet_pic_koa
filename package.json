@@ -1,0 +1,27 @@
+{
+  "name": "comment_pic_koa",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "jsonwebtoken": "^8.5.1",
+    "koa": "^2.7.0",
+    "koa-bodyparser": "latest",
+    "koa-jwt": "^3.6.0",
+    "koa-router": "latest",
+    "koa-sslify": "latest",
+    "koa2-cors": "^2.0.6",
+    "mysql2": "latest",
+    "nodemailer": "latest",
+    "nodemailer-smtp-transport": "latest",
+    "qcloudsms_js": "^0.1.1",
+    "request-promise": "^4.2.5",
+    "sequelize": "latest",
+    "util": "^0.12.1"
+  },
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-plugin-import": "^2.19.1"
+  }
+}

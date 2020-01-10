@@ -1,0 +1,5 @@
+node_modules
+.vscode
+config
+ssl
+view/resume.ejs
