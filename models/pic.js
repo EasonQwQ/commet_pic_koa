@@ -1,13 +1,19 @@
 
 const db = require('../config/db');
+const util = require('../utils/util');
 
 const Sequelize = db.sequelize;
 const Picture = Sequelize.import('../schema/pic');
 Picture.sync({ force: false });
 class PictureModel {
   static async create(data) {
-    const res = await Picture.create(data);
-    return res;
+    console.log('PictureModel -> create -> data', data);
+    try {
+      const res = await Picture.create(data);
+      return res;
+    } catch (err) {
+      console.log('er', err);
+    }
   }
 
   static async getPicAndAllCount(uid, pageIndex, pageSize) {

@@ -1,12 +1,22 @@
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
     <title>image</title>
-</head>
-<body>
-  <div align="center">
-    <img src=<%= url %> />
-  </div>
-    
-</body>
+    <style type="text/css">
+      div {
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      img {
+        min-width: 600px;
+      }
+    </style>
+  </head>
+  <body>
+    <div align="center">
+      <img src=<%= url %> max-width=200px max-height=200px/>
+    </div>
+  </body>
 </html>

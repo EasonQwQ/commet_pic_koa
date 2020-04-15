@@ -31,5 +31,10 @@ module.exports = (sequelize, DataTypes) => sequelize.define('pictures', {
     allowNull: true,
     type: DataTypes.INTEGER,
   },
+  trace_id: {
+    field: 'trace_id',
+    allowNull: true,
+    type: DataTypes.INTEGER,
+  },
 
 });
