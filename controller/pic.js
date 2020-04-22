@@ -15,27 +15,31 @@ class PictureController {
     //   },
     //   json: true,
     // });
-    const dwzRes = await rp({
-      uri: 'https://dwz.cn/admin/v2/create',
-      method: 'post',
-      headers: {
-        /* 'content-type': 'application/x-www-form-urlencoded' */ // Is set automatically
-        token: secret.dwzToken,
-      },
-      body: {
-        Url: `https://www.bbtjym.com:8100/url/redirect?url=https://${body.longurl}`,
-        TermOfValidity: '1-year',
-      },
-      json: true,
+    let dwzRes = await rp({
+      uri: `http://www.dw81.cn/dwz.php?longurl=https://www.bbtjym.com:8100/url/redirect?url=https://${body.longurl}`,
+      method: 'get',
+      // headers: {
+      //   /* 'content-type': 'application/x-www-form-urlencoded' */ // Is set automatically
+      //   token: secret.dwzToken,
+      // },
+      // body: {
+      //   Url: `https://www.bbtjym.com:8100/url/redirect?url=https://${body.longurl}`,
+      //   TermOfValidity: '1-year',
+      // },
+      // json: true,
     });
-    if (dwzRes.Code === 0) {
+    dwzRes = JSON.parse(dwzRes);
+    console.log('PictureController -> create -> dwzRes', dwzRes);
+    const backgroundImageRegex = /(?<=>).+(?=<)/;
+    if (dwzRes.code === 1) {
+      const shortUrl = dwzRes.ae_url.match(backgroundImageRegex)[0];
+      console.log('PictureController -> create -> shortUrl', shortUrl);
       const picDate = {
-        longurl: dwzRes.LongUrl,
-        shorturl: dwzRes.ShortUrl,
+        longurl: body.longurl,
+        shorturl: shortUrl,
         uid: ctx.user.uid,
         imgurl: `https://${body.longurl}`,
       };
-      console.log('PictureController -> create -> picDate', picDate);
       const res = await PictureModel.create(picDate);
       if (res) {
         ctx.body = {
@@ -52,7 +56,11 @@ class PictureController {
 
   static async getPicAndAllCount(ctx) {
     const { query } = ctx.request;
-    const res = await PictureModel.getPicAndAllCount(ctx.user.uid, query.pageIndex, query.pageSize);
+    const res = await PictureModel.getPicAndAllCount(
+      ctx.user.uid,
+      query.pageIndex,
+      query.pageSize,
+    );
     ctx.body = {
       res,
     };
